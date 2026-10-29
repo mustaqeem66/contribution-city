@@ -202,8 +202,7 @@ function buildIsometricSVG(username, days, themeName) {
 
     return `<svg xmlns="http://www.w3.org/2000/svg" width="${SVG_W}" height="${SVG_H}" viewBox="0 0 ${SVG_W} ${SVG_H}">
   <rect width="${SVG_W}" height="${SVG_H}" rx="12" fill="${t.bg}"/>
-  <text x="${PAD_X}" y="18" font-family="monospace" font-size="11" font-weight="bold" fill="${t.accent}">${esc(username)}</text>
-  <text x="${PAD_X + username.length * 7}" y="18" font-family="monospace" font-size="10" fill="${t.muted}">'s GitCity Skyline</text>
+  <text x="${PAD_X}" y="18" font-family="monospace" font-size="11" font-weight="bold" fill="${t.accent}">${esc(username)}<tspan font-size="10" font-weight="normal" fill="${t.muted}">'s GitCity Skyline</tspan></text>
   <text x="${PAD_X}" y="30" font-family="monospace" font-size="8" fill="${t.muted}">${total.toLocaleString()} contributions in the last year</text>
   ${shapes}
   ${monthLabels}
