@@ -19,11 +19,12 @@ jobs:
         with:
           node-version: '24'
 
-      - name: Generate Contribution City
-        run: node generate-city.js
+      - name: Generate contribution graphs
+        run: node generate-city.js && node gitcity.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_USERNAME: ${{ github.repository_owner }}
+          THEME: aurora
 
       - name: Commit & Push
         env:

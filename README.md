@@ -1,20 +1,29 @@
 # GitHub Contribution City
 
+An isometric contribution graph generator with two outputs:
+
+| Output | Range | Style |
+|--------|-------|-------|
+| `gitcity.svg` | **entire year** | Full-year isometric skyline (53 weeks × 7 days) |
+| `contribution-city.svg` | **last 7 days** | Pixel-art city, one building per day |
+
+Both files are regenerated every night by the workflow in this repository.
+
+## Full-year skyline
+
+![GitCity Skyline](./gitcity.svg)
+
+Rendered in the [GitCity](https://github.com/rishabhbhartiya/GitCity) style: every day of the year is a tower, height scales with the day's contribution count, and months are labelled along the edge.
+
+## This week's city
+
 ![Contribution City](./contribution-city.svg)
 
 [English](README.md) | [한국어](docs/README.ko.md)
 
 ---
 
-## Overview
-
-This project generates an isometric 3D city based on your GitHub commits from the last 7 days. Each building represents a day's commits — the more commits, the bigger the building!
-
-The city above is generated daily for [@Mustaqeem66](https://github.com/Mustaqeem66) by the workflow in this repository.
-
-<br>
-
-## Building Types
+## Building Types (weekly city)
 
 | Commits | Building | Preview |
 |---------|----------|---------|
@@ -34,7 +43,7 @@ The city above is generated daily for [@Mustaqeem66](https://github.com/Mustaqee
 
 ### Step 2. Enable the workflow
 
-No personal access token is required. The workflow uses the built-in `GITHUB_TOKEN` with `permissions: contents: write`, which is enough to read the public contribution calendar and commit the generated SVG back to this repository.
+No personal access token is required. The workflow uses the built-in `GITHUB_TOKEN` with `permissions: contents: write`, which is enough to read the public contribution calendar and commit the generated SVGs back to this repository.
 
 ### Step 3. Run Workflow
 
@@ -43,7 +52,8 @@ No personal access token is required. The workflow uses the built-in `GITHUB_TOK
 3. After completion, add this to your profile README:
 
 ```md
-![Contribution City](https://raw.githubusercontent.com/{{USERNAME}}/{{REPO_NAME}}/main/contribution-city.svg)
+![Full-year skyline](https://raw.githubusercontent.com/{{USERNAME}}/{{REPO_NAME}}/main/gitcity.svg)
+![This week's city](https://raw.githubusercontent.com/{{USERNAME}}/{{REPO_NAME}}/main/contribution-city.svg)
 ```
 
 > Replace `{{USERNAME}}` and `{{REPO_NAME}}` with your GitHub username and repository name.
@@ -62,8 +72,10 @@ your-repo/
 │   ├── Xsmall.svg, Small.svg, Middle.svg, Big.svg
 │   ├── MON.svg ~ SUN.svg
 │   └── 0.svg ~ 9.svg
-├── generate-city.js
+├── generate-city.js        # weekly city
+├── gitcity.js              # full-year skyline
 ├── contribution-city.svg
+├── gitcity.svg
 └── README.md
 ```
 
@@ -73,19 +85,23 @@ your-repo/
 |----------|----------|-------------|
 | `GITHUB_TOKEN` | Yes | Token with access to the contribution calendar (the workflow's built-in token works) |
 | `GITHUB_USERNAME` | Yes | Target GitHub username |
+| `THEME` | No | Skyline theme: `aurora` (default), `matrix`, `noir`, `ocean`, `gold`, `ice` |
 
 ## Notes
 
-- The bundled Galmuri11 font is subset to the characters rendered in the city (`0-9`, `YEAR:`, `WEEK:`), which keeps the output around 200 KB instead of several megabytes.
+- The full-year skyline uses the GitHub contribution calendar, so private contributions are included in the counts.
+- The bundled Galmuri11 font is subset to the characters rendered in the weekly city (`0-9`, `YEAR:`, `WEEK:`), which keeps its output around 200 KB instead of several megabytes.
+- The skyline renderer is adapted from GitCity and keeps Apache-2.0 attribution; see `THIRD_PARTY_NOTICES.md`.
 
 ## Acknowledgements
 
-This project was heavily inspired by [github-profile-3d-contrib](https://github.com/yoshi389111/github-profile-3d-contrib) by yoshi389111.
+- [GitCity](https://github.com/rishabhbhartiya/GitCity) by Rishabh Bhartiya — full-year isometric renderer
+- [github-profile-3d-contrib](https://github.com/yoshi389111/github-profile-3d-contrib) by yoshi389111 — weekly city inspiration
+- [Galmuri11](https://github.com/quiple/galmuri) by quiple — pixel font
 
 ## License
 
-MIT License
+The original generator is MIT licensed. Adapted code retains its upstream license:
 
-## Font
-
-- [Galmuri11](https://github.com/quiple/galmuri) by quiple
+- `gitcity.js` — Apache License 2.0 (`LICENSES/Apache-2.0.txt`)
+- `assets/font/Galmuri11.ttf` — SIL Open Font License 1.1
